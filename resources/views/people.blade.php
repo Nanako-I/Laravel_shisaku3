@@ -77,18 +77,14 @@
        <!--             </div>-->
        <!--     </div>-->
   　　　　　 
-  　　<!-- カラム５ -->
+  　　<!-- カラむ５  -->
   　　<!--画像-->
   　　<form method="POST" form action="{{ url('people') }}" enctype="multipart/form-data">
   @csrf
   <input type="file" name="profile_image">
   <button>アップロード</button>
 </form>
-<!--  　<form method="POST" action="/upload" enctype="multipart/form-data">
-<!--  @csrf-->
-<!--  <input type="file" name="image">-->
-<!--  <button>アップロード</button>-->
-<!--</form>-->
+
 
  <!--<div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">-->
  <!--                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">-->
