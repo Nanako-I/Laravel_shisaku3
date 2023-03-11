@@ -52,16 +52,13 @@
                       <input name="title" value="{{$person->person_name}}" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
                     </div>
                     
-                     <!-- カラム2 -->
-                     <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                    生年月日  
-                     </label>
                      
-                    <span style="color:red">{{ $errors->first('birthday') }}</span>
-                    @livewire('birthday',['year' =>2000, 'month'=>12, 'day'=>31])
-                    </div>
+                       <!-- カラム2-->
+            <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
+                        生年月日
+                        <input type="date"  value="{{$person->date_of_birth}}" class="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base">
                     
+                    </div>
                     
                      <!-- カラム3 -->
                     <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
@@ -72,20 +69,24 @@
                     </div>
             </div>
             
-            
              <!-- カラム4 -->
-　　　　　　<div class="form-group">
-　　　　　　    性別
-　　　　　　<!--<label for="category-id">{{ __('カテゴリー') }}<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>-->
-     　　　<select class="form-control" value="{{$person->gender}}"　id="category-id"  name="category_id">
-}"
-          <option value="1">--</option>
-          <option value="2">男性</option>
-          <option value="3">女性</option>
-          <option value="4">その他</option>
-     　　 </select>
-  　　　　　 </div>
+　　　　　　
+
+　 <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                       性別
+                      </label>
+                      <input name="gender" value="{{$person->gender}}" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
+                    </div>
+            </div>
   　　　　　 
+  　　　　　  <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                       画像
+                      </label>
+                      <input name="profile_image" value="{{$person->profile_image}}"class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
+                    </div>
+            </div>
   　　　　　 
   　　　　　  <!-- カラム6 -->
                     <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">

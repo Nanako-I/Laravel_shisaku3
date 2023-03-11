@@ -48,53 +48,63 @@
                       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                        氏名
                       </label>
-                      <input name="title" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
+                      <input name="person_name" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
                     </div>
                     <!-- カラム2 -->
-                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                    生年月日  
-                     </label>
-                     
-                    <span style="color:red">{{ $errors->first('birthday') }}</span>
-                    @livewire('birthday',['year' =>2000, 'month'=>12, 'day'=>31])
-                    </div>
+                    
+                    <!--<div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">-->
+                    <!--    生年月日-->
+                    <!--    <input type="date" class="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base">-->
+                    
+                    <!--</div>-->
                     
                     <!-- カラム3 -->
-                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
-                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                       年齢
-                      </label>
-                      <input name="age" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
-                    </div>
-            </div>
+            <!--        <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">-->
+            <!--          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">-->
+            <!--           年齢-->
+            <!--          </label>-->
+            <!--          <input name="age" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">-->
+            <!--        </div>-->
+            <!--</div>-->
             
-             <!-- カラム4 -->
-　　　　　　<div class="form-group">
-　　　　　　    性別
-　　　　　　<!--<label for="category-id">{{ __('カテゴリー') }}<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>-->
-     　　　　 <select class="form-control" id="category-id" name="category_id">
-          <option value="1">--</option>
-          <option value="2">男性</option>
-          <option value="3">女性</option>
-          <option value="4">その他</option>
-     　　 </select>
-  　　　　　 </div>
+           
+  　　　　 <!-- カラム4 -->
+  　　　　 <!--<div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">-->
+       <!--               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">-->
+       <!--                性別-->
+       <!--               </label>-->
+       <!--               <input name="gender" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">-->
+       <!--             </div>-->
+       <!--     </div>-->
   　　　　　 
   　　<!-- カラム５ -->
   　　<!--画像-->
-  　　<form method="POST" action="/upload" enctype="multipart/form-data">
-  　　    
-  　　    <input type="file" name="image">
-  <button></button>
+  　　<form method="POST" form action="{{ url('people') }}" enctype="multipart/form-data">
+  @csrf
+  <input type="file" name="profile_image">
+  <button>アップロード</button>
 </form>
+<!--  　<form method="POST" action="/upload" enctype="multipart/form-data">
+<!--  @csrf-->
+<!--  <input type="file" name="image">-->
+<!--  <button>アップロード</button>-->
+<!--</form>-->
+
+ <!--<div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">-->
+ <!--                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">-->
+ <!--                      画像-->
+ <!--                     </label>-->
+ <!--                     <input name="profile_image" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">-->
+ <!--                   </div>-->
+ <!--           </div>-->
+            
                     <!-- カラム6 -->
-                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
-                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                       障害名
-                      </label>
-                      <input name="body" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
-                    </div>
+                    <!--<div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">-->
+                    <!--  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">-->
+                    <!--   障害名-->
+                    <!--  </label>-->
+                    <!--  <input name="body" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">-->
+                    <!--</div>-->
                
                
                   <div class="flex flex-col">
@@ -117,7 +127,7 @@
          <!-- 現在の本 -->
         @if (count($people) > 0)
             @foreach ($people as $person)
-                <!-- 本: 削除ボタン -->
+                 本: 削除ボタン 
                 <div class="flex justify-between p-4 items-center bg-blue-500 text-white rounded-lg border-2 border-white">
                   <div>{{ $person->person_name }}</div>
                   

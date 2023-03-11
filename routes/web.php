@@ -28,11 +28,27 @@ Route::get('/dashboard', function () {
 // Book用の一括ルーティング
 Route::resource('people', PersonController::class);
   
+//   Route::resource('/photos', 'App\Http\Controllers\PhotoController')->only(['create','store']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+Route::get('/photo/upload', PersonController::class, 'uploadForm')->name('photo.upload.form');
+
+Route::post('/photo/upload', PersonController::class, 'upload')->name('photo.upload');
+
+
+// Route::get('/photo/upload', PhotoController::class, 'uploadForm')->name('photo.upload.form');
+
+// Route::post('/photo/upload', PhotoController::class, 'upload')->name('photo.upload');
+
+
+
+
+
 
 require __DIR__.'/auth.php';

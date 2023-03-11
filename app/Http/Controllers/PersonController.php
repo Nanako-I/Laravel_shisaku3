@@ -48,14 +48,22 @@ class PersonController extends Controller
          $storeData = $request->validate([
             //  requireは必須項目　nullableは書かなくてもいい
             'person_name' => 'required|max:255',
+            // 'person_name' => ['required', 'string', 'max:255'],
             // 'date_of_birth' => 'required|max:255',
             // 'age' => 'required|max:255',
         ]);
         // バリデーションした内容を保存する↓
         // Personモデルにアクセス
-        $people = Person::create($storeData);
-        // トップページに返す↓
-        return redirect('/people');
+        
+        $people = Person::create([
+       'person_name' => $request->person_name,
+    //   $user = User::create([
+    //   'name' => $request->name,
+    ]);
+
+        // $people = Person::create($storeData);
+        // // トップページに返す↓
+        // return redirect('/people');
     
     }
 
@@ -80,8 +88,8 @@ class PersonController extends Controller
     // 更新画面の表示↓
     public function edit(Person $person)
     {
-        // compact('people')で合っている↓
-        return view('peopleedit',compact('people'));
+        // compact('person')で合っている　 下記に$personが代入される↓
+        return view('peopleedit',compact('person'));
     
     }
 
@@ -99,14 +107,44 @@ class PersonController extends Controller
     {
        $storeData = $request->validate([
             //  requireは必須項目　nullableは書かなくてもいい
-            'person_name' => 'required|max:255',
-            'date_of_birth' => 'required|max:255',
-            'age' => 'required|max:255',
+            // 'person_name' => 'required|max:255',
+            // 'date_of_birth' => 'required|max:255',
+            // 'age' => 'required|max:255',
         ]);
         
-        $person ->update($storeData);
+        $person ->update($updateData);
         // トップページに返す↓
         return redirect('/people');
+    }
+
+
+public function upload(Request $request)
+{
+// バリデーション
+$request->validate([
+'photo' => 'required|image|max:2048',
+]);
+
+// 保存先ディレクトリ
+$directory = 'public/sample';
+
+// ファイル名をユニークにする
+$filename = uniqid() . '.' . $request->file('photo')->getClientOriginalExtension();
+
+// ファイルを保存
+$request->file('photo')->storeAs($directory, $filename);
+
+// 保存したファイルのパスを取得
+$filepath = $directory . '/' . $filename;
+
+// リダイレクト
+return redirect()->route('photos.create.form')->with('success', '画像をアップロードしました。');
+}
+
+
+ public function __invoke()
+    {
+        return view('person');
     }
 
     /**
