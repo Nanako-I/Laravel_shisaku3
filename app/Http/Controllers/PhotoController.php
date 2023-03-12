@@ -31,26 +31,26 @@ class PhotoController extends Controller
 // return view('photos.create');
 // }
 
-public function upload(Request $request)
-{
-// バリデーション
-$request->validate([
-'photo' => 'required|image|max:2048',
-]);
+// public function upload(Request $request)
+// {
+// // バリデーション
+// $request->validate([
+// 'photo' => 'required|image|max:2048',
+// ]);
 
-// 保存先ディレクトリ
-$directory = 'public/sample';
+// // 保存先ディレクトリ
+// $directory = 'public/sample';
 
-// ファイル名をユニークにする
-$filename = uniqid() . '.' . $request->file('photo')->getClientOriginalExtension();
+// // ファイル名をユニークにする
+// $filename = uniqid() . '.' . $request->file('photo')->getClientOriginalExtension();
 
-// ファイルを保存
-$request->file('photo')->storeAs($directory, $filename);
+// // ファイルを保存
+// $request->file('photo')->storeAs($directory, $filename);
 
-// 保存したファイルのパスを取得
-$filepath = $directory . '/' . $filename;
+// // 保存したファイルのパスを取得
+// $filepath = $directory . '/' . $filename;
 
-// リダイレクト
-return redirect()->route('photos.create.form')->with('success', '画像をアップロードしました。');
-}
-}
+// // リダイレクト
+// return redirect()->route('photos.create.form')->with('success', '画像をアップロードしました。');
+// }
+// }

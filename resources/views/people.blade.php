@@ -52,6 +52,16 @@
                     </div>
                     <!-- カラム2 -->
                     
+                    
+                     <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
+                    <input name="date_of_birth" label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                    生年月日  
+                     </label>
+                     
+                    <span style="color:red">{{ $errors->first('birthday') }}</span>
+                    @livewire('birthday',['year' =>2000, 'month'=>12, 'day'=>31])
+                    </div>
+                    
                     <!--<div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">-->
                     <!--    生年月日-->
                     <!--    <input type="date" class="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base">-->
@@ -59,12 +69,15 @@
                     <!--</div>-->
                     
                     <!-- カラム3 -->
-            <!--        <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">-->
-            <!--          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">-->
-            <!--           年齢-->
-            <!--          </label>-->
-            <!--          <input name="age" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">-->
-            <!--        </div>-->
+                   
+                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                       年齢
+                      </label>
+                      
+                      <input name="age" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
+                      @livewire('age-input')
+                      </div>
             <!--</div>-->
             
            
@@ -75,14 +88,27 @@
        <!--               </label>-->
        <!--               <input name="gender" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">-->
        <!--             </div>-->
+                    
+                     <div class="form-group">
+    <label for="gender">性別</label>
+    <select class="form-control" id="gender" name="gender">
+        <option value="">--</option>
+        <option value="男性">男性</option>
+        <option value="女性">女性</option>
+        <option value="その他">その他</option>
+    </select>
+</div>
+
        <!--     </div>-->
   　　　　　 
   　　<!-- カラむ５  -->
   　　<!--画像-->
-  　　<form method="POST" form action="{{ url('people') }}" enctype="multipart/form-data">
-  @csrf
+  　　<form action="{{ route('photos.create')}}" method="post" enctype="multipart/form-data">
+  　　
+  <!--@csrf-->
   <input type="file" name="profile_image">
   <button>アップロード</button>
+  <button type="submit">
 </form>
 
 
@@ -95,12 +121,12 @@
  <!--           </div>-->
             
                     <!-- カラム6 -->
-                    <!--<div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">-->
-                    <!--  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">-->
-                    <!--   障害名-->
-                    <!--  </label>-->
-                    <!--  <input name="body" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">-->
-                    <!--</div>-->
+                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                       障害名
+                      </label>
+                      <input name="disability_name" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
+                    </div>
                
                
                   <div class="flex flex-col">
@@ -120,14 +146,37 @@
     
     <!--右側エリア[START]-->
     <div class="flex-1 text-gray-700 text-left bg-blue-100 px-4 py-2 m-2">
+    <!--ある↑-->
          <!-- 現在の本 -->
         @if (count($people) > 0)
             @foreach ($people as $person)
-                 本: 削除ボタン 
-                <div class="flex justify-between p-4 items-center bg-blue-500 text-white rounded-lg border-2 border-white">
+                  
+    
+              
+                 <section class="text-gray-600 body-font" _msthidden="14">
+             　 <!--<div class="container px-5 py-24 mx-auto" _msthidden="14">-->
+             　     <!--ある↑-->
+            
+              <div class="w-24 h-full bg-indigo-500"></div>
+             　 </div>
+              
+    　      
+                
+             　　　<div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4" _msthidden="12">
+                      <div class="p-4 md:w-1/3 sm:mb-0 mb-6" _msthidden="4">
+              　　　　　　<div class="rounded-lg h-64 overflow-hidden" _msthidden="1">
+            <!--ある↑-->
+                　　　　<img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1203x503" _msthidden="A" _mstalt="99710" _msthash="173">
+              　　 
+                
+        
+                <h2 class="text-xl font-medium title-font text-gray-900 mt-5" _msttexthash="204971" _msthidden="1" _msthash="178">{{ $person->person_name }}</h2>
+                <p class="text-base leading-relaxed mt-2" _msttexthash="12667447" _msthidden="1" _msthash="179">{{ $person->date_of_birth }}</p>
                   <div>{{ $person->person_name }}</div>
                   
+            　     　</div>
                     <div>
+                    <!--ある↑-->
                     <form action="{{ url('people/'.$person->id.'/edit') }}" method="GET">
                          @csrf
                          
@@ -136,9 +185,11 @@
                         </button>
                         
                      </form>
+                     
                   </div>
                   
                   <div>
+                <!--ある↑-->
                     <form action="{{ url('people/'.$person->id) }}" method="POST">
                          @csrf
                          @method('DELETE')

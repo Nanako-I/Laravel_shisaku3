@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+// ↓livewireを呼び出し
+// namespace App\Http\Livewire;
+
 
 // Personモデルを呼び出している↓
 use App\Models\Person;
@@ -26,6 +29,17 @@ class PersonController extends Controller
    
     }
 
+// use Livewire\Component;
+
+// class Birthday extends Component
+// {
+//     public $birthday;
+
+//     public function render()
+//     {
+//         return view('livewire.birthday');
+//     }
+// }
     /**
      * Show the form for creating a new resource.
      *
@@ -49,7 +63,7 @@ class PersonController extends Controller
             //  requireは必須項目　nullableは書かなくてもいい
             'person_name' => 'required|max:255',
             // 'person_name' => ['required', 'string', 'max:255'],
-            // 'date_of_birth' => 'required|max:255',
+            'date_of_birth' => 'required|max:255',
             // 'age' => 'required|max:255',
         ]);
         // バリデーションした内容を保存する↓
@@ -57,8 +71,13 @@ class PersonController extends Controller
         
         $people = Person::create([
        'person_name' => $request->person_name,
+       'date_of_birth' => $request->date_of_birth,
+       'age' => $request->age,
+       'gender' => $request->gender,
     //   $user = User::create([
     //   'name' => $request->name,
+    'profile_image' => $request->profile_image,
+    'disability_name' => $request->disability_name,
     ]);
 
         // $people = Person::create($storeData);
@@ -118,21 +137,26 @@ class PersonController extends Controller
     }
 
 
+public function uploadForm()
+    {
+        return view('photos.create');
+    }
+    
 public function upload(Request $request)
 {
 // バリデーション
 $request->validate([
-'photo' => 'required|image|max:2048',
-]);
+            'profile_image' => 'required|image|max:2048',
+            ]);
 
 // 保存先ディレクトリ
-$directory = 'public/sample';
+ $directory = 'public/sample';
 
 // ファイル名をユニークにする
-$filename = uniqid() . '.' . $request->file('photo')->getClientOriginalExtension();
+$filename = uniqid() . '.' . $request->file('profile_image')->getClientOriginalExtension();
 
 // ファイルを保存
-$request->file('photo')->storeAs($directory, $filename);
+$request->file('profile_image')->storeAs($directory, $filename);
 
 // 保存したファイルのパスを取得
 $filepath = $directory . '/' . $filename;
