@@ -103,9 +103,9 @@
   　　　　　 
   　　<!-- カラむ５  -->
   　　<!--画像-->
-  　　<form action="{{ route('photos.create')}}" method="post" enctype="multipart/form-data">
   　　
-  <!--@csrf-->
+  　　<enctype="multipart/form-data">
+  @csrf
   <input type="file" name="profile_image">
   <button>アップロード</button>
   <button type="submit">

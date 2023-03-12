@@ -37,8 +37,8 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/photos/create', [PersonController::class, 'uploadForm'])->name('photos.create.form');
-Route::post('/photos/create', [PersonController::class, 'upload'])->name('photos.create');
+Route::get('/photos/create', [PhotoController::class, 'uploadForm'])->name('photos.create.form');
+Route::post('/photos/create', [PhotoController::class, 'upload'])->name('photos.create');
 
 
 // Route::get('/photo/upload', PhotoController::class, 'uploadForm')->name('photo.upload.form');
