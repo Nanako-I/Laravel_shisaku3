@@ -104,6 +104,12 @@
   　　<!-- カラむ５  -->
   　　<!--画像-->
   　　
+  　　@if (session('success'))
+  <div class=“alert alert-success”>
+  {{ session('success') }}
+  </div>
+  @endif
+  　　
   　　<enctype="multipart/form-data">
   @csrf
   <input type="file" name="profile_image">

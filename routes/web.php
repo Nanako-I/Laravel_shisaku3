@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PersonController;//追記
-
+use App\Http\Controllers\PhotoController;//追記
 /*
 |--------------------------------------------------------------------------
 | Web Routes
