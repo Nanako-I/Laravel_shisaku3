@@ -1,24 +1,12 @@
-// {
-//   "resources/css/app.css": {
-//     "file": "assets/app-3b633339.css",
-//     "isEntry": true,
-//     "src": "resources/css/app.css"
-//   },
-//   "resources/js/app.js": {
-//     "file": "assets/app-c47d7316.js",
-//     "isEntry": true,
-//     "src": "resources/js/app.js"
-//   }
-// }
-
- "scripts": {
--     "dev": "npm run development",
--     "development": "mix",
--     "watch": "mix watch",
--     "watch-poll": "mix watch -- --watch-options-poll=1000",
--     "hot": "mix watch --hot",
--     "prod": "npm run production",
--     "production": "mix --production"
-+     "dev": "vite",
-+     "build": "vite build"
+{
+  "resources/css/app.css": {
+    "file": "assets/app-3b633339.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-c47d7316.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
   }
+}
