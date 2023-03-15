@@ -34,13 +34,13 @@
             
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-500 font-bold">
-                    本を管理する
+                　更新する
                 </div>
             </div>
 
 
             <!-- 本のタイトル -->
-            <form action="{{ url('people'/.$person->id ) }}" method="POST" class="w-full max-w-lg">
+            <form action="{{ url('people' ) }}" method="POST" class="w-full max-w-lg">
                 @method('PATCH')
                 @csrf
                   <div class="flex flex-col px-2 py-2">
@@ -78,15 +78,21 @@
                       </label>
                       <input name="gender" value="{{$person->gender}}" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
                     </div>
-            </div>
-  　　　　　 
-  　　　　　  <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
-                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                       画像
-                      </label>
-                      <input name="profile_image" value="{{$person->profile_image}}"class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
-                    </div>
-            </div>
+                    
+                    　@if (session('success'))
+  <div class=“alert alert-success”>
+  {{ session('success') }}
+  </div>
+  @endif
+  　　
+  　　<enctype="multipart/form-data">
+  @csrf
+  <input type="file" name="profile_image">
+  <button>アップロード</button>
+  <button type="submit">
+</form>
+
+  　　　
   　　　　　 
   　　　　　  <!-- カラム6 -->
                     <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
@@ -100,9 +106,13 @@
                   <!-- カラム５ -->
                   <div class="flex flex-col">
                       <div class="text-gray-700 text-center px-4 py-2 m-2">
-                             <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                          <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                                 送信
                             </button>
+            </div>
+  　　　
+  　　　
+                             
                       </div>
                    </div>
             </form>

@@ -25,7 +25,7 @@ return new class extends Migration
 //             $table->timestamps();
 
 //  genderカラムのデータ型変更↓
-        DB::statement('ALTER TABLE people_table MODIFY gender string;');
+        DB::statement('ALTER TABLE people_table MODIFY gender VARCHAR(100);');
         
         });
     }

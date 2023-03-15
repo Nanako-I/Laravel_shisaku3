@@ -70,12 +70,12 @@
                     
                     <!-- カラム3 -->
                    
-                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
+                    <div class="w-full md: px-3 mb-2 md:mb-0">
                       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                        年齢
                       </label>
                       
-                      <input name="age" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
+                      <input name="age" class="appearance-none block w-1/3 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
                       @livewire('age-input')
                       </div>
             <!--</div>-->
@@ -131,7 +131,7 @@
                       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                        障害名
                       </label>
-                      <input name="disability_name" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
+                      <input name="body" value="{{$person->disability_name}}" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
                     </div>
                
                
@@ -146,6 +146,7 @@
             </form>
         </div>
         </div>
+       
         <!--左エリア[END]--> 
         
     
