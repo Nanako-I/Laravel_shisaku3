@@ -131,7 +131,7 @@
                       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                        障害名
                       </label>
-                      <input name="body" value="{{$person->disability_name}}" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
+                      <input name="disability_name" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
                     </div>
                
                

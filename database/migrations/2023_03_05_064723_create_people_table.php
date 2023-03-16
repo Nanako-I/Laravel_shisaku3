@@ -25,10 +25,10 @@ return new class extends Migration
 //             $table->timestamps();
 
 //  genderカラムのデータ型変更↓
-        DB::statement('ALTER TABLE people_table MODIFY gender VARCHAR(100);');
+    //     DB::statement('ALTER TABLE people_table MODIFY gender string;');
         
-        });
-    }
+    //     });
+    // }
 
 
 // public function up()
@@ -37,10 +37,10 @@ return new class extends Migration
 // }
 
 //  genderカラムのデータ型変更時に打ったコード↓
-public function down()
-{
-    DB::statement('ALTER TABLE people_table MODIFY gender integer;');
-}
+// public function down()
+// {
+//     DB::statement('ALTER TABLE people_table MODIFY gender integer;');
+// }
     /**
      * Reverse the migrations.
      *
@@ -50,4 +50,19 @@ public function down()
 //     {
 //         Schema::dropIfExists('people');
 //     }
-};
+
+
+     
+
+//         Schema::table('people', function (Blueprint $table) {
+//             $table->gender->VARCHAR(100);
+//         });
+//     }
+
+//     public function down()
+//     {
+//         Schema::table('people', function (Blueprint $table) {
+//             $table->gender->string();
+//         });
+//     }
+// };
