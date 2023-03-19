@@ -174,11 +174,25 @@
                     &nbsp;&nbsp;&nbsp;
                     
                      </span>
-             
-                <button type="button" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded" @click="capture">キャプチャ</button>
+             　 <button type="button" button id="take-photo" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">キャプチャ</button>
+                <!--<button type="button" button id="take-photo" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded" @click="capture">キャプチャ</button>-->
                  
             </div>
             <video ref="video" style="width: 640px; height: 480px;"></video>
+            
+             <style>
+                <div class="relative h-screen">
+                  <video id="camera-stream" class="absolute inset-0 w-full h-full object-cover"></video>
+                   <div id="camera-range" class="absolute inset-10 w-80 h-80 border-2 border-red-500"></div>
+                </div>
+    
+              </style>
+    
+                    <div id="video-container">
+                            <video id="camera-stream" autoplay></video>
+                            <div id="camera-range"></div>
+                    </div>
+    
         </div>
           <div v-show="isModeImage">
               <div class="float-right">
@@ -201,12 +215,13 @@
               <!--キャンバス要素-->
               <canvas ref="canvas" width="640" height="480"></canvas>
         　</div>
-        　　　　<div class="modal fixed z-10 inset-0 overflow-y-auto" id="modal">
-                  <div class="modal-dialog inline-block align-middle max-w-md w-full p-4 my-8 overflow-hidden text-left transition-all transform bg-white shadow-xl rounded">
-                    <div class="modal-content">
-                       <div class="modal-header">
-                  　　　　　　<h5 class="modal-title text-lg font-bold">自動入力する項目を選択してください</h5>
-                       </div>
+        　<!--左上のフロート部分↓-->
+        　　　　<!--<div class="modal fixed z-10 inset-0 overflow-y-auto" id="modal">-->
+            <!--      <div class="modal-dialog inline-block align-middle max-w-md w-full p-4 my-8 overflow-hidden text-left transition-all transform bg-white shadow-xl rounded">-->
+            <!--        <div class="modal-content">-->
+            <!--           <div class="modal-header">-->
+            <!--      　　　　　　<h5 class="modal-title text-lg font-bold">自動入力する項目を選択してください</h5>-->
+            <!--           </div>-->
       <!-- ここにモーダルの中身を記述 -->
                     
                  
@@ -229,18 +244,11 @@
         　
              <h1 class="a" >押したら？</h1>
              
-              <style>
-      <div class="relative h-screen">
-      <video id="camera-stream" class="absolute inset-0 w-full h-full object-cover"></video>
-      <div id="camera-range" class="absolute inset-10 w-80 h-80 border-2 border-red-500"></div>
+            
+    
+   
     </div>
     
-    </style>
-    </div>
-     <div id="video-container">
-      <video id="camera-stream" autoplay></video>
-      <div id="camera-range"></div>
-    </div>
  <!--vue3.2.47をＣＤＮ経由で呼び出す↓　3.2.47のバージョンで呼び出し-->
  <!--<script src="https://unpkg.com/vue@3.2.47/dist/vue.global.prod.js"></script>-->
  <!--バージョン変えずに呼び出し↓-->
@@ -256,56 +264,75 @@
 
     <script>
     
-    // async function startCamera() {
-    //     const cameraStream = await navigator.mediaDevices.getUserMedia({
-    //       video: {
-    //         facingMode: 'environment',
-
-    //         aspectRatio: {
-    //           exact: 1.6,
-    //         },
-    //       },
-    //       audio: false,
-    //     });
-    //     const videoElement = document.createElement("video")
-    //     videoElement.autoplay = true;
-    //     videoElement.srcObject = cameraStream;
-    //     document.body.append(videoElement);
-    //     videoElement.addEventListener("resize", () => {
-    //       videoElement.width = videoElement.videoWidth;
-    //       videoElement.height = videoElement.videoHeight;
-    //     });
-    //   }
-    //   startCamera()
-    //   上記でカメラは起動する↑
     
-    async function startCamera() {
-        const cameraStream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: 'environment',
+    
+    async function takePhoto() {
+  // 静止画像をキャプチャするために必要な要素↓
+  const videoElement = document.querySelector('#camera-stream');
+  const canvasElement = document.querySelector('#camera-canvas');
 
-            aspectRatio: {
-              exact: 1.6,
-            },
-          },
-          audio: false,
-        });
-        const videoElement = document.querySelector('#camera-stream')
-        videoElement.srcObject = cameraStream;
-        videoElement.addEventListener("resize", () => {
-          videoElement.width = videoElement.videoWidth;
-          videoElement.height = videoElement.videoHeight;
-        });
+ // canvasElementの大きさをvideoElementの大きさに合わせる↓canvasElementに描画することで、videoElementから静止画像をキャプチャできる
+  canvasElement.width = videoElement.videoWidth;
+  canvasElement.height = videoElement.videoHeight;
 
-        // Set camera range size based on video dimensions
-        videoElement.addEventListener('loadedmetadata', () => {
-          const videoRatio = videoElement.videoWidth / videoElement.videoHeight;
-          const rangeElement = document.querySelector('#camera-range')
-          const rangeWidth = rangeElement.offsetHeight * videoRatio;
-          rangeElement.style.width = `${rangeWidth}px`;
-        });
-      }
-      startCamera()
+  // videoElementの現在のビデオフレームをcanvasElementに描画する 
+  // context変数からdrawImage()メソッドを使用して、videoElementのビデオフレームをcanvasElementに描画
+  // videoElementの現在のフレームをキャプチャして、canvasElementに描画するために必要な処理を行っている
+  
+  const context = canvasElement.getContext('2d');
+  context.drawImage(videoElement, 0, 0);
+
+  // getTracks()メソッドを使用して、ビデオストリームのトラックを取得し、forEach()メソッドを使用して、すべてのトラックを停止
+  const cameraStream = videoElement.srcObject;
+  cameraStream.getTracks().forEach(track => {
+    track.stop();
+  });
+  
+ // キャンバスに描画された静止画像をデータURLに変換する↓キャンバスの内容をimage/png形式でデータURLとして返す
+  const dataUrl = canvasElement.toDataURL('image/png');
+  const imageElement = document.createElement('img');
+  imageElement.src = dataUrl;
+
+  // Append the image element to the document body
+  document.body.appendChild(imageElement);
+}
+
+// ユーザーのカメラにアクセスし、カメラストリームを取得  
+async function startCamera() {
+  const cameraStream = await navigator.mediaDevices.getUserMedia({
+    video: {
+      facingMode: 'environment',
+      aspectRatio: {
+        exact: 1.6,
+      },
+    },
+    audio: false,
+  });
+
+// srcObjectプロパティに、前のステップで取得したcameraStreamを割り当てる　ビデオ要素の幅と高さを現在のビデオの幅と高さに設定
+
+  const videoElement = document.querySelector('#camera-stream');
+  videoElement.srcObject = cameraStream;
+  videoElement.addEventListener("resize", () => {
+    videoElement.width = videoElement.videoWidth;
+    videoElement.height = videoElement.videoHeight;
+  });
+
+  // Set camera range size based on video dimensions
+  videoElement.addEventListener('loadedmetadata', () => {
+    const videoRatio = videoElement.videoWidth / videoElement.videoHeight;
+    const rangeElement = document.querySelector('#camera-range');
+    const rangeWidth = rangeElement.offsetHeight * videoRatio;
+    rangeElement.style.width = `${rangeWidth}px`;
+  });
+
+  //ボタンがクリックされたときに、takePhoto関数が呼び出される　takePhoto関数は、静止画像をキャプチャするための処理を行う
+  const captureButton = document.querySelector('#take-photo');
+  captureButton.addEventListener('click', takePhoto);
+}
+
+startCamera();
+
       
 //       videoElement.autoplay = true;
 // videoElement.mediaStream = cameraStream;
@@ -329,8 +356,8 @@ document.getElementsByTagName("img").src = capturedImageUrl
 
 
 </script>
- <!--<input type="file" id="file-input" accept="image/*"><br>-->
- <!-- <div id="result"></div>-->
+ <input type="file" id="file-input" accept="image/*"><br>
+  <div id="result"></div>
 </body>
 </html>
     
