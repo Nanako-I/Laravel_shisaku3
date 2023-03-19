@@ -15,7 +15,6 @@ use App\Http\Controllers\PhotoController;//追記
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -47,7 +46,8 @@ Route::post('/photos/create', [PhotoController::class, 'upload'])->name('photos.
 
 
 
-
+Route::get('businesscard', 'BusinessCardController@index');
+Route::post('businesscard/extract', 'BusinessCardController@extract');
 
 
 require __DIR__.'/auth.php';
