@@ -163,7 +163,7 @@
         
         <hr>
         <h5>
-            名刺をウェブカメラに見せて「キャプチャ」ボタンをクリックしてください。<br>
+            読み取りたいものをウェブカメラに見せて「キャプチャ」ボタンをクリックしてください。<br>
             3秒後に画像がキャプチャされます。
         </h5>
         
@@ -178,8 +178,7 @@
                 <!--<button type="button" button id="take-photo" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded" @click="capture">キャプチャ</button>-->
                  
             </div>
-            <video ref="video" style="width: 640px; height: 480px;"></video>
-            
+            <!--カメラが映っている部分が表示されている箇所↓-->
              <style>
                 <div class="relative h-screen">
                   <video id="camera-stream" class="absolute inset-0 w-full h-full object-cover"></video>
@@ -241,8 +240,7 @@
                     </div>
         　         </div>
         　       </div>
-        　
-             <h1 class="a" >押したら？</h1>
+        
              
             
     
@@ -266,10 +264,7 @@
     
     
     
-    async function takePhoto() {
-  // 静止画像をキャプチャするために必要な要素↓
-  const videoElement = document.querySelector('#camera-stream');
-  const canvasElement = document.querySelector('#camera-canvas');
+
 
  // canvasElementの大きさをvideoElementの大きさに合わせる↓canvasElementに描画することで、videoElementから静止画像をキャプチャできる
   canvasElement.width = videoElement.videoWidth;
@@ -332,28 +327,6 @@ async function startCamera() {
 }
 
 startCamera();
-
-      
-//       videoElement.autoplay = true;
-// videoElement.mediaStream = cameraStream;
-
-function captureImage(videoElement) {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    if (context === null) {
-      throw new Error("canvas.getContext('2d') return null");
-    }
-
-    canvas.width = videoElement.videoWidth;
-    canvas.height = videoElement.videoHeight;
-    context.drawImage(this.videoElement, 0, 0, canvas.width,        canvas.height);
-    return canvas.toDataURL('image/jpeg', 0.95);
-}
-
-const capturedImageUrl = captureImage(videoElement)
-
-document.getElementsByTagName("img").src = capturedImageUrl
-
 
 </script>
  <input type="file" id="file-input" accept="image/*"><br>
