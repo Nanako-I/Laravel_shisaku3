@@ -174,10 +174,19 @@
                     &nbsp;&nbsp;&nbsp;
                     
                      </span>
-             　 <button type="button" button id="take-photo" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">キャプチャ</button>
+                     
+                     <!--福島先生コード-->
+                      <div>
+                          <video autoplay muted playsinline id="video"></video>
+                      </div>
+    
+             　 <button type="button" button id="button" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">写真を撮る</button>
                 <!--<button type="button" button id="take-photo" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded" @click="capture">キャプチャ</button>-->
                  
-            </div>
+            </div>  
+                <div>
+                   <img id="image" alt="" />
+                </div>
             <!--カメラが映っている部分が表示されている箇所↓-->
              <style>
                 <div class="relative h-screen">
@@ -186,6 +195,12 @@
                 </div>
     
               </style>
+              
+              <!--福島先生コード-->
+              <!--<form action="storage.php" method="post">-->
+                 <input type="hidden" id="base64_image" name="base64_image" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded" value="" />
+                  <button type="button" button id="" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">画像保存</button>
+              </form>
     
                     <div id="video-container">
                             <video id="camera-stream" autoplay></video>
@@ -260,73 +275,96 @@
                
   
 
-    <script>
-    
-    
-    
+      <script>
 
 
- // canvasElementの大きさをvideoElementの大きさに合わせる↓canvasElementに描画することで、videoElementから静止画像をキャプチャできる
-  canvasElement.width = videoElement.videoWidth;
-  canvasElement.height = videoElement.videoHeight;
+async function main() {
+  try {
+    const video = document.querySelector("#camera-stream");
+    const button = document.querySelector("#button");
+    const image = document.querySelector("#image");
+ 　 let dataUrl = "";
 
-  // videoElementの現在のビデオフレームをcanvasElementに描画する 
-  // context変数からdrawImage()メソッドを使用して、videoElementのビデオフレームをcanvasElementに描画
-  // videoElementの現在のフレームをキャプチャして、canvasElementに描画するために必要な処理を行っている
-  
-  const context = canvasElement.getContext('2d');
-  context.drawImage(videoElement, 0, 0);
-
-  // getTracks()メソッドを使用して、ビデオストリームのトラックを取得し、forEach()メソッドを使用して、すべてのトラックを停止
-  const cameraStream = videoElement.srcObject;
-  cameraStream.getTracks().forEach(track => {
-    track.stop();
-  });
-  
- // キャンバスに描画された静止画像をデータURLに変換する↓キャンバスの内容をimage/png形式でデータURLとして返す
-  const dataUrl = canvasElement.toDataURL('image/png');
-  const imageElement = document.createElement('img');
-  imageElement.src = dataUrl;
-
-  // Append the image element to the document body
-  document.body.appendChild(imageElement);
-}
-
-// ユーザーのカメラにアクセスし、カメラストリームを取得  
-async function startCamera() {
-  const cameraStream = await navigator.mediaDevices.getUserMedia({
-    video: {
-      facingMode: 'environment',
-      aspectRatio: {
-        exact: 1.6,
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        facingMode: "user",
       },
-    },
-    audio: false,
-  });
+      audio: false,
+    });
 
-// srcObjectプロパティに、前のステップで取得したcameraStreamを割り当てる　ビデオ要素の幅と高さを現在のビデオの幅と高さに設定
+    video.srcObject = stream;
 
-  const videoElement = document.querySelector('#camera-stream');
-  videoElement.srcObject = cameraStream;
-  videoElement.addEventListener("resize", () => {
-    videoElement.width = videoElement.videoWidth;
-    videoElement.height = videoElement.videoHeight;
-  });
+    const [track] = stream.getVideoTracks();
+    const settings = track.getSettings();
+    const { width, height } = settings;
 
-  // Set camera range size based on video dimensions
-  videoElement.addEventListener('loadedmetadata', () => {
-    const videoRatio = videoElement.videoWidth / videoElement.videoHeight;
-    const rangeElement = document.querySelector('#camera-range');
-    const rangeWidth = rangeElement.offsetHeight * videoRatio;
-    rangeElement.style.width = `${rangeWidth}px`;
-  });
+const base64_image = document.getElementById("base64_image");
 
-  //ボタンがクリックされたときに、takePhoto関数が呼び出される　takePhoto関数は、静止画像をキャプチャするための処理を行う
-  const captureButton = document.querySelector('#take-photo');
-  captureButton.addEventListener('click', takePhoto);
+   button.addEventListener("click", async (event) => {
+  const canvas = document.createElement("canvas");
+  canvas.setAttribute("width", width);
+  canvas.setAttribute("height", height);
+
+  const context = canvas.getContext("2d");
+  context.drawImage(video, 0, 0, width, height);
+
+
+// Webカメラで撮った画像をURLに変換
+  dataUrl = canvas.toDataURL("image/jpeg");
+    image.src = dataUrl;
+
+  console.log(dataUrl); // 追加
+ image.onload = async () => {
+      if (!dataUrl) {
+        console.log("dataUrl is undefined");
+        return;
+      }
+       // recognizeText関数が呼び出され、テキスト認識を実行
+      await recognizeText(dataUrl);
+};
+    });
+  } catch (err) {
+    console.error(err);
+  }
 }
 
-startCamera();
+
+
+
+
+// 福島先生コード↑
+
+
+// HTMLのフォームでユーザーがアップロードした画像のBase64エンコードされたデータを取得
+// Google Cloud Vision APIの「TEXT_DETECTION」機能を使用するためのリクエストデータを作成します。
+async function recognizeText(dataUrl) {
+  if (!dataUrl) return; // 追加
+  const base64Data = dataUrl.split(",")[1];
+  const requestData = {
+    requests: [
+      {
+        image: {
+          content: base64Data,
+        },
+        features: [{ type: "TEXT_DETECTION" }],
+      },
+    ],
+  };
+  const response = await fetch(
+    "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAzFkwOvLJLiMOxJc1VDD99bBTi1ZMgwYg",
+    {
+      method: "POST",
+      body: JSON.stringify(requestData),
+    }
+  );
+  
+//   応答データからテキストを抽出し、コンソールに出力
+ const data = await response.json();
+  const text = data.responses[0].fullTextAnnotation.text;
+  console.log(text);
+}
+main();
+// recognizeText();
 
 </script>
  <input type="file" id="file-input" accept="image/*"><br>
@@ -338,7 +376,7 @@ startCamera();
     <div class="flex-1 text-gray-700 text-left bg-blue-100 px-4 py-2 m-2">
     <!--ある↑-->
          <!-- 現在の本 -->
-        @if (count($people) > 0)
+      @if (count($people) > 0)
             @foreach ($people as $person)
                   
     

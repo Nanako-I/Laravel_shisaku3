@@ -70,12 +70,10 @@ class PersonController extends Controller
         // Personモデルにアクセス
         
         $people = Person::create([
-       'person_name' => $request->person_name,
-       'date_of_birth' => $request->date_of_birth,
-       'age' => $request->age,
-       'gender' => $request->gender,
-    //   $user = User::create([
-    //   'name' => $request->name,
+      'person_name' => $request->person_name,
+      'date_of_birth' => $request->date_of_birth,
+      'age' => $request->age,
+      'gender' => $request->gender,
     'profile_image' => $request->profile_image,
     'disability_name' => $request->disability_name,
     ]);

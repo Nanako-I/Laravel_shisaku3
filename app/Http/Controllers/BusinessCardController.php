@@ -13,6 +13,9 @@ class BusinessCardController extends Controller
         return view('businesscard.index');
 
     }
+    
+    // extract()内ではAjaxで送信されてきた画像データ（dataURL）からテキスト抽出し、取得された内容を加工してAjaxへ返すようになっている
+    // $descriptionが抽出データ
 
     public function extract(Request $request) {
 
