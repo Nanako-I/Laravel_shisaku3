@@ -351,7 +351,7 @@ async function recognizeText(dataUrl) {
     ],
   };
   const response = await fetch(
-    "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAzFkwOvLJLiMOxJc1VDD99bBTi1ZMgwYg",
+    "https://vision.googleapis.com/v1/images:annotate?key=",
     {
       method: "POST",
       body: JSON.stringify(requestData),
