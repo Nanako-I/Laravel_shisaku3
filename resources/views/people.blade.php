@@ -221,7 +221,8 @@
                   <div v-if="extractedText" class="whitespace-pre"></div>
             
                    <hr class="border-t-2 border-gray-500">
-                     <span class="inline-block px-2 py-1 rounded-full text-sm font-bold bg-blue-500 text-white">取得されたテキスト</span>
+                    <span class="badge badge-primary">取得されたテキスト</span>
+<div v-text="extractedText" @mouseup="selection"></div>
                <!--extractedTextという変数に格納されたテキストを表示する.その要素がクリックされた時にselectionメソッドを実行するように設定-->
                    <div class="mt-2" @mouseup="selection" v-text="extractedText"></div>
                   </div>
@@ -236,21 +237,27 @@
             <!--           <div class="modal-header">-->
             <!--      　　　　　　<h5 class="modal-title text-lg font-bold">自動入力する項目を選択してください</h5>-->
             <!--           </div>-->
+                        
+
+
       <!-- ここにモーダルの中身を記述 -->
                     
-                 
+                    <!-- ここにコンソールに表示された文章が反映される↓ -->
+                 <input type="text" id="text-box">
                
         　　　　　　　　　　　　　　　　　<div class="modal-body">
             　　　　　　　　　　　　　　　 <strong class="font-bold">選択されたテキスト：</strong>
               　　　　　　　　　　　　　　　　　　　<span class="font-bold" v-text="selectedText"></span>
-          
+           <!--<strong>選択されたテキスト：</strong> <span v-text="selectedText"></span>-->
         　　　　　　　        　　　　　　<br>
           　　　　　        　　　　<br>
             　　　　　　　  　　　　　　　<div class="mt-8">
-              　　　　　　　　　　　　　<h3 class="float-left" v-for="(text, key) in inputs">
+              　　　　　　　     　　　　　　<h3 class="float-left" v-for="(text, key) in inputs">
                   <!--ボタンがクリックされると、@click.preventディレクティブによって関数enterTextが呼び出される-->
-               　　　　　　　　　　　　　　　　　　 <a href="#" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" v-text="text" @click.prevent="enterText(key)"></a>
-              　　　　　　　　　　　　　</h3>
+               　 <a class="badge badge-primary" href="#" v-text="text" @click.prevent="enterText(key)"></a>&nbsp;
+              　　　　　　　     　　　　　
+              　　　　　　　       　　　　</h3>
+                                </div>
                           </div>
                     </div>
         　         </div>
@@ -261,7 +268,7 @@
     
    
     </div>
-    
+   
  <!--vue3.2.47をＣＤＮ経由で呼び出す↓　3.2.47のバージョンで呼び出し-->
  <!--<script src="https://unpkg.com/vue@3.2.47/dist/vue.global.prod.js"></script>-->
  <!--バージョン変えずに呼び出し↓-->
@@ -274,9 +281,36 @@
 
                
   
-
       <script>
+const app = Vue.createApp({
+  data() {
+    return {
+      params: {
+        name: '',
+        organization: '',
+        address: '',
+        tel: '',
+        email: '',
+        url: ''
+      },
+      inputs: {
+        name: '名前',
+        organization: '会社名',
+        address: '住所',
+        tel: 'TEL',
+        email: 'E-Mail',
+        url: 'URL'
+      },
+      imageData: null,
+      mode: 'video',
+      timeCount: 0,
+      extractedText: '',
+      selectedText: ''
+    };
+  }
+});
 
+app.mount('#app');
 
 async function main() {
   try {
@@ -350,18 +384,21 @@ async function recognizeText(dataUrl) {
       },
     ],
   };
-  const response = await fetch(
-    "https://vision.googleapis.com/v1/images:annotate?key=",
-    {
-      method: "POST",
-      body: JSON.stringify(requestData),
-    }
-  );
+const apiKey = "{{ config('app.api_key') }}";
+const response = await fetch(
+ "https://vision.googleapis.com/v1/images:annotate?key=" + apiKey,
+  {
+    method: "POST",
+    body: JSON.stringify(requestData),
+  }
+);
   
 //   応答データからテキストを抽出し、コンソールに出力
  const data = await response.json();
   const text = data.responses[0].fullTextAnnotation.text;
   console.log(text);
+  //   テキストボックスにコンソールに表示された文字を入れる
+  document.getElementById("text-box").value = text;
 }
 main();
 // recognizeText();
