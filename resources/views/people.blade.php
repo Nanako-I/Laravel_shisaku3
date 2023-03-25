@@ -282,35 +282,6 @@
                
   
       <script>
-const app = Vue.createApp({
-  data() {
-    return {
-      params: {
-        name: '',
-        organization: '',
-        address: '',
-        tel: '',
-        email: '',
-        url: ''
-      },
-      inputs: {
-        name: '名前',
-        organization: '会社名',
-        address: '住所',
-        tel: 'TEL',
-        email: 'E-Mail',
-        url: 'URL'
-      },
-      imageData: null,
-      mode: 'video',
-      timeCount: 0,
-      extractedText: '',
-      selectedText: ''
-    };
-  }
-});
-
-app.mount('#app');
 
 async function main() {
   try {
