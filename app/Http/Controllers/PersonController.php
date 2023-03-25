@@ -57,7 +57,7 @@ class PersonController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-        public function store(Request $request)
+    public function store(Request $request)
     {
          $storeData = $request->validate([
             //  requireは必須項目　nullableは書かなくてもいい

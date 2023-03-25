@@ -43,7 +43,7 @@
             <!-- 本のタイトル -->
             <form action="{{ url('people') }}" method="POST" class="w-full max-w-lg">
                 @csrf
-                  <div class="flex flex-col px-2 py-2">
+                <div class="flex flex-col px-2 py-2">
                    <!-- カラム１ -->
                     <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
                       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -54,77 +54,80 @@
                     <!-- カラム2 -->
                     
                     
-                     <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
-                    <input name="date_of_birth" label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                    生年月日  
-                     </label>
+                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
+                        <input name="date_of_birth" label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        生年月日  
+                        </label>
                      
-                    <span style="color:red">{{ $errors->first('birthday') }}</span>
-                    @livewire('birthday',['year' =>2000, 'month'=>12, 'day'=>31])
+                        <span style="color:red">{{ $errors->first('birthday') }}</span>
+                        @livewire('birthday',['year' =>2000, 'month'=>12, 'day'=>31])
                     </div>
                     
                     
                     <!-- カラム3 -->
                    
                     <div class="w-full md: px-3 mb-2 md:mb-0">
-                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                       年齢
-                      </label>
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                         年齢
+                        </label>
                       
-                      <input name="age" class="appearance-none block w-1/3 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
-                      @livewire('age-input')
-                      </div>
+                        <input name="age" class="appearance-none block w-1/3 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
+                        @livewire('age-input')
+                    </div>
             <!--</div>-->
             
                     
-                     <div class="form-group">
-    <label for="gender">性別</label>
-    <select class="form-control" id="gender" name="gender">
-        <option value="">--</option>
-        <option value="男性">男性</option>
-        <option value="女性">女性</option>
-        <option value="その他">その他</option>
-    </select>
-</div>
+                　　<div class="form-group">
+                        <label for="gender">性別</label>
+                        <select class="form-control" id="gender" name="gender">
+                            <option value="">--</option>
+                            <option value="男性">男性</option>
+                            <option value="女性">女性</option>
+                            <option value="その他">その他</option>
+                        </select>
+                    </div>
 
        <!--     </div>-->
   　　　　　 
-  　　<!-- カラむ５  -->
-  　　<!--画像-->
   　　
-  　　@if (session('success'))
-  <div class=“alert alert-success”>
-  {{ session('success') }}
-  </div>
-  @endif
-  　<form action="{{ route('photos.create') }}" method="post" enctype="multipart/form-data">
-  　　<!--<enctype="multipart/form-data">-->
-  @csrf
-  <input type="file" name="profile_image">
-  <button>アップロード</button>
-  <button type="submit">
-</form>
-            
-                    <!-- カラム6 -->
-                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
-                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                       障害名
-                      </label>
-                      <input name="disability_name" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
+  　　　　　　　　　<!-- カラム6 -->
+  　　　　　　　　　　　　　　<div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        障害名
+                        </label>
+                        <input name="disability_name" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
                     </div>
+                    
+                    <!-- カラむ５  -->
+                    <!--画像-->
+                    @if (session('success'))
+                    <div class=“alert alert-success”>
+                      {{ session('success') }}
+                    </div>
+                    @endif
+                  　<form action="{{ route('photos.create') }}" method="post" enctype="multipart/form-data">
+                  　　　　<enctype="multipart/form-data">
+                        @csrf
+                　　　　　  <input type="file" name="profile_image">
+                　　　　　  <button>アップロード</button>
+                　　 　 　 <button type="submit">
+              　　　  </form>
+            
+                    
+                    
                
                
-                  <div class="flex flex-col">
-                      <div class="text-gray-700 text-center px-4 py-2 m-2">
-                             <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                    <div class="flex flex-col">
+                        <div class="text-gray-700 text-center px-4 py-2 m-2">
+                        　　<button type="submit">
                                 送信
                             </button>
-                            
-                      </div>
-                   </div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
-        </div>
+    </div>
        
         <!--左エリア[END]--> 
         
