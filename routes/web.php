@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PersonController;//追記
 use App\Http\Controllers\PhotoController;//追記
+use App\Http\Controllers\TemperatureController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,7 +39,22 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/photos/create', [PhotoController::class, 'uploadForm'])->name('photos.create.form');
 Route::post('/photos/create', [PhotoController::class, 'upload'])->name('photos.create');
+// postはこちら側が情報を投げる　getは情報をとってくる
 
+
+
+// Route::resource('people/{id}/edit', TemperatureController::class);
+// Route::post('people/{id}/edit', [TemperatureController::class, 'post'])->name('temperature.post');
+// Route::resource('temperature', TemperatureController::class);
+// Route::post('people/'.$person->id.'/edit', [TemperatureController::class,'post'])->name('temperature.post');
+Route::post('people/{id}/edit', [TemperatureController::class,'store'])->name('temperature.post');
+
+
+Route::get('people/{id}/edit', [PersonController::class, 'edit'])->name('people.edit');
+// Route::post('people', [TemperatureController::class,'post'])->name('temperature.post');
+// Route::post('people/{id}/edit', 'TemperatureController@post')->name('temperature.post');
+// Route::get('people/{id}/edit', [TemperatureController::class, 'edit'])->name('people.edit');
+// Route::post('peopleedit', [TemperatureController::class, 'store'])->name('peopleedit.create');
 
 // Route::get('/photo/upload', PhotoController::class, 'uploadForm')->name('photo.upload.form');
 

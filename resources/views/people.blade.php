@@ -41,139 +41,60 @@
 
 
             <!-- 本のタイトル -->
-            <form action="{{ url('people') }}" method="POST" class="w-full max-w-lg">
-                @csrf
-                <div class="flex flex-col px-2 py-2">
-                   <!-- カラム１ -->
-                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
-                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                       氏名
-                      </label>
-                      <input name="person_name" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
-                    </div>
-                    <!-- カラム2 -->
-                    
-                    
-                    <div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
-                        <input name="date_of_birth" label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        生年月日  
-                        </label>
-                     
-                        <span style="color:red">{{ $errors->first('birthday') }}</span>
-                        @livewire('birthday',['year' =>2000, 'month'=>12, 'day'=>31])
-                    </div>
-                    
-                    
-                    <!-- カラム3 -->
-                   
-                    <div class="w-full md: px-3 mb-2 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                         年齢
-                        </label>
-                      
-                        <input name="age" class="appearance-none block w-1/3 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
-                        @livewire('age-input')
-                    </div>
-            <!--</div>-->
             
-                    
-                　　<div class="form-group">
-                        <label for="gender">性別</label>
-                        <select class="form-control" id="gender" name="gender">
-                            <option value="">--</option>
-                            <option value="男性">男性</option>
-                            <option value="女性">女性</option>
-                            <option value="その他">その他</option>
-                        </select>
-                    </div>
-
-       <!--     </div>-->
-  　　　　　 
-  　　
-  　　　　　　　　　<!-- カラム6 -->
-  　　　　　　　　　　　　　　<div class="w-full md:w-1/1 px-3 mb-2 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        障害名
-                        </label>
-                        <input name="disability_name" class="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="">
-                    </div>
-                    
-                    <!-- カラむ５  -->
-                    <!--画像-->
-                    @if (session('success'))
-                    <div class=“alert alert-success”>
-                      {{ session('success') }}
-                    </div>
-                    @endif
-                  　<form action="{{ route('photos.create') }}" method="post" enctype="multipart/form-data">
-                  　　　　<enctype="multipart/form-data">
-                        @csrf
-                　　　　　  <input type="file" name="profile_image">
-                　　　　　  <button>アップロード</button>
-                　　 　 　 <button type="submit">
-              　　　  </form>
-            
-                    
-                    
-               
-               
-                    <div class="flex flex-col">
-                        <div class="text-gray-700 text-center px-4 py-2 m-2">
-                        　　<button type="submit">
-                                送信
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
        
         <!--左エリア[END]--> 
         
       <body>
-    <div id="app" class="container">
-        <br>
-        <h3>ウェブカメラで名刺を読みとってデータ入力する</h3>
-        　　　　<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    　　　　　　　　　　　　　　　　<div class="form-group">
-       　　　　　　　　　　　　　　　　　　 <label class="block text-sm font-medium text-gray-700">名前</label>
-       　　　　　　　　　　　　　　　　 <input type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" v-model="params.name">
-    　　　　　　　　　　　　　　　　</div>
-    　　　　　      　   　　　<div class="form-group">
-                           <label class="block text-sm font-medium text-gray-700">会社名</label>
-                           <input type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" v-model="params.organization">
+            <form action="{{ url('people') }}" method="POST" class="w-full">
+                        @csrf
+              
+                <br>
+                <h3>ウェブカメラで身分証明書（障害者手帳など）を読みとってデータ入力する</h3>
+                　　  　  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="form-group col-span-1">
+                                    <label class="block text-sm font-medium text-gray-700">名前</label>
+                                    <input name="person_name" type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" v-model="params.name">
+                                </div>
+                                <div class="form-group col-span-1">
+                                    <label class="block text-sm font-medium text-gray-700">生年月日</label>
+                                    <input name="date_of_birth" type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" v-model="params.date_of_birth">
+                                </div>
+                                <div class="form-group col-span-1">
+                                    <label class="block text-sm font-medium text-gray-700">年齢</label>
+                                    <input name="age" type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" v-model="params.age">
+                                </div>
+                                <div class="form-group col-span-1">
+                                    <label class="block text-sm font-medium text-gray-700">性別</label>
+                                    <input name="gender" type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" v-model="params.gender">
+                                </div>
+                                <div class="form-group col-span-1">
+                                    <label class="block text-sm font-medium text-gray-700">障害名</label>
+                                    <input name="disability_name" type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" v-model="params.disability_name">
+                                </div>
+                                <div class="flex flex-col col-span-1">
+                                    <div class="text-gray-700 text-center px-4 py-2 m-2">
+                                        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
+                                            送信
+                                        </button>
+                                    </div>
+                                </div>
                         </div>
-                        <div class="form-group">
-                           <label class="block text-sm font-medium text-gray-700">住所</label>
-                           <input type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" v-model="params.address">
-                        </div>
-                        <div class="form-group">
-                           <label class="block text-sm font-medium text-gray-700">TEL</label>
-                           <input type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" v-model="params.tel">
-                        </div>
-                        <div class="form-group">
-                           <label class="block text-sm font-medium text-gray-700">E-Mail</label>
-                           <input type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" v-model="params.email">
-                        </div>
-                        <div class="form-group">
-                           <label class="block text-sm font-medium text-gray-700">URL</label>
-                           <input type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" v-model="params.url">
-                        </div>
-                </div>
-        
+
+            </form>   
         
         
         <hr>
         <h5>
-            読み取りたいものをウェブカメラに見せて「キャプチャ」ボタンをクリックしてください。<br>
-            3秒後に画像がキャプチャされます。
+            読み取った文字を上のフォームに当てはめてください。<br>
         </h5>
         
         <div v-show="isModeVideo">
             <div class="float-right">
                 <span class="text-right" v-if="this.timeCount > 0">
-                    @{{ timeCount }} 秒
+                 
                     &nbsp;&nbsp;&nbsp;
                     
                      </span>
@@ -191,48 +112,51 @@
                    <img id="image" alt="" />
                 </div>
             <!--カメラが映っている部分が表示されている箇所↓-->
-             <style>
-                <div class="relative h-screen">
-                  <video id="camera-stream" class="absolute inset-0 w-full h-full object-cover"></video>
-                   <div id="camera-range" class="absolute inset-10 w-80 h-80 border-2 border-red-500"></div>
-                </div>
-    
-              </style>
+            <div class="flex">
+                 <style>
+                    <div class="relative h-screen">
+                      <video id="camera-stream" class="absolute inset-0 w-full h-full object-cover"></video>
+                       <div id="camera-range" class="absolute inset-10 w-80 h-80 border-2 border-red-500"></div>
+                    </div>
+        
+                  </style>
               
               <!--福島先生コード-->
               <!--<form action="storage.php" method="post">-->
                  <input type="hidden" id="base64_image" name="base64_image" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded" value="" />
-                  <button type="button" button id="" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">画像保存</button>
+                  <!--<button type="button" button id="" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">画像保存</button>-->
               </form>
     
                     <div id="video-container">
+                        
                             <video id="camera-stream" autoplay></video>
                             <div id="camera-range"></div>
                     </div>
-    
+    　　　　     <input type="text" id="text-box" class="w-300 h-10">
+　　　　　　
         </div>
           <div v-show="isModeImage">
-              <div class="float-right">
-                 キャプチャしました。<br>この画像から情報を読みとりますか？
-                 <br>
-                  <div class="text-right">
-                    <button type="button" class="bg-gray-100 text-gray-700 rounded-md py-2 px-4 mr-2" @click="cancel">キャンセル</button>
-                    <button type="button" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md" @click="extract">OK</button>
-                  </div>
+           <!--   <div class="float-right">-->
+           <!--      キャプチャしました。<br>この画像から情報を読みとりますか？-->
+           <!--      <br>-->
+           <!--       <div class="text-right">-->
+           <!--         <button type="button" class="bg-gray-100 text-gray-700 rounded-md py-2 px-4 mr-2" @click="cancel">キャンセル</button>-->
+           <!--         <button type="button" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md" @click="extract">OK</button>-->
+           <!--       </div>-->
            
            <!--extractedText という変数が truthy（真）である場合、div 要素が描画される↓-->
-                  <div v-if="extractedText" class="whitespace-pre"></div>
+           <!--       <div v-if="extractedText" class="whitespace-pre"></div>-->
             
-                   <hr class="border-t-2 border-gray-500">
-                    <span class="badge badge-primary">取得されたテキスト</span>
-<div v-text="extractedText" @mouseup="selection"></div>
+           <!--        <hr class="border-t-2 border-gray-500">-->
+           <!--         <span class="badge badge-primary">取得されたテキスト</span>-->
+　　　　　　　　　　　<!--　<div v-text="extractedText" @mouseup="selection"></div>-->
                <!--extractedTextという変数に格納されたテキストを表示する.その要素がクリックされた時にselectionメソッドを実行するように設定-->
-                   <div class="mt-2" @mouseup="selection" v-text="extractedText"></div>
-                  </div>
-              </div>
+           <!--        <div class="mt-2" @mouseup="selection" v-text="extractedText"></div>-->
+           <!--       </div>-->
+              <!--</div>-->
               <!--キャンバス要素-->
               <canvas ref="canvas" width="640" height="480"></canvas>
-        　</div>
+        　<!--</div>-->
         　<!--左上のフロート部分↓-->
         　　　　<!--<div class="modal fixed z-10 inset-0 overflow-y-auto" id="modal">-->
             <!--      <div class="modal-dialog inline-block align-middle max-w-md w-full p-4 my-8 overflow-hidden text-left transition-all transform bg-white shadow-xl rounded">-->
@@ -246,10 +170,10 @@
       <!-- ここにモーダルの中身を記述 -->
                     
                     <!-- ここにコンソールに表示された文章が反映される↓ -->
-                 <input type="text" id="text-box">
+                 <!--<input type="text" id="text-box">-->
                
-        　　　　　　　　　　　　　　　　　<div class="modal-body">
-            　　　　　　　　　　　　　　　 <strong class="font-bold">選択されたテキスト：</strong>
+        　　　　　　　　　　　　　　　　　<!--<div class="modal-body">-->
+            　　　　　　　　　　　　　<!--　　 <strong class="font-bold">選択されたテキスト：</strong>-->
               　　　　　　　　　　　　　　　　　　　<span class="font-bold" v-text="selectedText"></span>
            <!--<strong>選択されたテキスト：</strong> <span v-text="selectedText"></span>-->
         　　　　　　　        　　　　　　<br>
@@ -378,7 +302,7 @@ main();
 // recognizeText();
 
 </script>
- <input type="file" id="file-input" accept="image/*"><br>
+ <!--<input type="file" id="file-input" accept="image/*"><br>-->
   <div id="result"></div>
 </body>
 </html>
@@ -392,52 +316,74 @@ main();
                   
     
               
-                 <section class="text-gray-600 body-font" _msthidden="14">
+                 <!--<section class="text-gray-600 body-font" _msthidden="14">-->
              　 <!--<div class="container px-5 py-24 mx-auto" _msthidden="14">-->
              　     <!--ある↑-->
             
-              <div class="w-24 h-full bg-indigo-500"></div>
-             　 </div>
+              <!--<div class="w-24 h-full bg-indigo-500"></div>-->
+             　<!-- </div>-->
               
     　      
                 
-             　　　<div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4" _msthidden="12">
-                      <div class="p-4 md:w-1/3 sm:mb-0 mb-6" _msthidden="4">
-              　　　　　　<div class="rounded-lg h-64 overflow-hidden" _msthidden="1">
+            <!-- 　　　<div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4" _msthidden="12">-->
+            <!--          <div class="p-4 md:w-1/3 sm:mb-0 mb-6" _msthidden="4">-->
+            <!--  　　　　　　<div class="rounded-lg h-64 overflow-hidden" _msthidden="1">-->
             <!--ある↑-->
-                　　　　<img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1203x503" _msthidden="A" _mstalt="99710" _msthash="173">
+            <!--    　　　　<img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1203x503" _msthidden="A" _mstalt="99710" _msthash="173">-->
               　　 
                 
         
-                <h2 class="text-xl font-medium title-font text-gray-900 mt-5" _msttexthash="204971" _msthidden="1" _msthash="178">{{ $person->person_name }}</h2>
-                <p class="text-base leading-relaxed mt-2" _msttexthash="12667447" _msthidden="1" _msthash="179">{{ $person->date_of_birth }}</p>
-                  <div>{{ $person->person_name }}</div>
+            <!--    <h2 class="text-xl font-medium title-font text-gray-900 mt-5" _msttexthash="204971" _msthidden="1" _msthash="178">{{ $person->person_name }}</h2>-->
+            <!--    <p class="text-base leading-relaxed mt-2" _msttexthash="12667447" _msthidden="1" _msthash="179">{{ $person->date_of_birth }}</p>-->
+            <!--      <div>{{ $person->person_name }}</div>-->
                   
-            　     　</div>
-                    <div>
-                    <!--ある↑-->
-                    <form action="{{ url('people/'.$person->id.'/edit') }}" method="GET">
-                         @csrf
-                         
-                        <button type="submit"  class="btn bg-blue-500 rounded-lg">
-                            更新
-                        </button>
+            <!--　     　</div>-->
+            　　　　　<section class="text-gray-600 body-font" _msthidden="18">
+            　   　　　 　　<div class="container px-5 py-24 mx-auto" _msthidden="18">
+    　　　　　　　　　　　　　　　　　　　　<div class="flex flex-wrap -m-4" _msthidden="18">
+   　　　　　　　　　　　　　　　　　　　　　　　　　   <div class="p-4 lg:w-1/3" _msthidden="6">
+        　　　　　　　　            　　　　　　<div class="h-full bg-gray-100 bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative" _msthidden="6">
+                                          <!--<h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1" _msttexthash="84188" _msthidden="1" _msthash="63">CATEGORY</h2>-->
+                                                  <h1 class="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3" _msttexthash="882973" _msthidden="1" _msthash="64">{{$person->person_name}}</h1>
+                                                      <p class="leading-relaxed mb-3" _msttexthash="5575180" _msthidden="1" _msthash="65">{{$person->date_of_birth}}生まれ</p>
+                                                      　<p class="leading-relaxed mb-3" _msttexthash="5575180" _msthidden="1" _msthash="65">{{$person->gender}}</p>
+                                                             <a class="text-indigo-500 inline-flex items-center" _msthidden="1">
+                  　　　                                           <div class="inline-flex items-center">
+                                                          　　        <form action="{{ url('people/'.$person->id.'/edit') }}" method="GET">
+                                                                         @csrf
+                                                                         
+                                                                         
+                                                                          <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg text-lg mr-4">
+                                                                            詳細を見る
+                                                                          </button>
+                                                                          
+                                                                    </form>          
+                                                                    <form action="{{ url('people/'.$person->id) }}" method="POST">
+                                                                     @csrf
+                                                                     @method('DELETE')
+                                                                    
+                                                                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg text-lg">
+                                                                        削除
+                                                                    </button>
+                                                                    
+                                                                    </form>
+                  　　　                                           </div>
+                  　　　                     
+                  　　　               </div>
+   　　　                          </div>
+   　　　                      </div>
+   　　　                  </div>
+   　　　              
+   　　　              
+                   
                         
-                     </form>
+                     
                      
                   </div>
                   
                   <div>
                 <!--ある↑-->
-                    <form action="{{ url('people/'.$person->id) }}" method="POST">
-                         @csrf
-                         @method('DELETE')
-                        
-                        <button type="submit"  class="btn bg-blue-500 rounded-lg">
-                            削除
-                        </button>
-                        
-                     </form>
+                    
                   </div>
                 
                 </div>

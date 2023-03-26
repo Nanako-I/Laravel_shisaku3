@@ -76,7 +76,9 @@ class PersonController extends Controller
       'gender' => $request->gender,
     'profile_image' => $request->profile_image,
     'disability_name' => $request->disability_name,
+    
     ]);
+    return redirect('people');
 
         // $people = Person::create($storeData);
         // // トップページに返す↓
@@ -103,12 +105,11 @@ class PersonController extends Controller
      */
      
     // 更新画面の表示↓
-    public function edit(Person $person)
-    {
-        // compact('person')で合っている　 下記に$personが代入される↓
-        return view('peopleedit',compact('person'));
-    
-    }
+    public function edit($id)
+{
+    $person = Person::find($id);
+    return view('peopleedit', compact('person'));
+}
 
     /**
      * Update the specified resource in storage.
