@@ -291,7 +291,7 @@ const response = await fetch(
   }
 );
   
-//   応答データからテキストを抽出し、コンソールに出力
+//   応答データからテキストを抽出し、コンソールに出力する
  const data = await response.json();
   const text = data.responses[0].fullTextAnnotation.text;
   console.log(text);
