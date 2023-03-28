@@ -183,6 +183,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Laravel\Fortify\FortifyServiceProvider::class,
         Laravel\Fortify\Features::class,
+        // Laravel\Fortify\Providers\FortifyServiceProvider::class
 
         /*
          * Package Service Providers...
