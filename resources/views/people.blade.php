@@ -390,7 +390,7 @@ main();
             @endforeach
         @endif
     </div>
-    <!--右側エリア[[END]--> 
+    <!--右側エリア[END]--> 
 
 </div>
  <!--全エリア[END]-->
