@@ -9,7 +9,6 @@
         "calebporzio/livewire": "^2.12",
         "google/cloud-vision": "^1.6",
         "guzzlehttp/guzzle": "^7.2",
-        "laravel/fortify": "^1.16",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^3.0",
         "laravel/sanctum": "^3.0",

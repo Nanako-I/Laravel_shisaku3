@@ -11,10 +11,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
-use Laravel\Fortify\FortifyServiceProvider as FortifyProvider;
-use Laravel\Fortify\Features;
+// use Laravel\Fortify\FortifyServiceProvider as ServiceProvider;
+// use Laravel\Fortify\Features;
 
-class FortifyServiceProvider extends FortifyProvider
+class FortifyServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
